@@ -1,0 +1,9 @@
+A thief lies on six days of the week, But on one day- the same day each week-he only tells the truth. On three consecutive days, he says:
+
+Day 1: I lie on Monday and Tuesday.
+
+Day 2: It’s now Thursday, Saturday or Sunday.
+
+Day 3: I lie on Wednesday and Friday.
+
+Which day does the thief tell the truth?
