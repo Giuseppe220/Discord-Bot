@@ -8,7 +8,7 @@ module.exports = {
 	usage: '(meme type)',
 	adminOnly: false,
 	permission: false,
-	cooldown: 60,
+	cooldown: 40,
 	execute(message, args) {
 		if(!args.length){
 			dir = `../CommandFiles/${message.guild.id}/meme`;
