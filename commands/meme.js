@@ -1,6 +1,6 @@
-const {MessageAttachment} = require('discord.js');
+const discord = require('discord.js');
 const recursive = require("recursive-readdir");
-const Attachment = MessageAttachment;
+const https = require("https");
 module.exports = {
 	name: 'memes',
 	description: 'posts memes',
@@ -32,7 +32,7 @@ module.exports = {
 			else{
 			randomMeme = Math.floor((Math.random() * files.length));
 			//attachment = new Attachment(`${dir}/${files[randomMeme]}`);
-			attachment = new Attachment(`${files[randomMeme]}`);
+			attachment = new discord.MessageAttachment(`${files[randomMeme]}`);
 			message.channel.send(attachment);
 			}
 		});

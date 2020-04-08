@@ -1,0 +1,45 @@
+function apiSearch(jobs,jobList,page,pageStart) {
+    if(jobs.length<50&&page>1&&jobs.length>0){
+        //console.log(`api search complete`);
+        return;
+    }
+    let url = `${pageStart}${page}`;
+    https.get(url, gitJob => {
+        if(jobs.length===50) {
+            jobs.clear();
+        }
+        let {statusCode} = gitJob;
+        if (statusCode !== 200) {
+                gitJob.abort();
+        }
+        else{
+            //console.log(`http ${status} means we are good to go`);
+        }
+
+        gitJob.on('error', () => {
+            gitJob.resume();
+            console.error("github job listing error");
+        });
+
+        gitJob.setEncoding("utf8");
+        let json = '';
+        gitJob.on('data', cache => {
+            json += cache;
+        });
+
+        gitJob.on('end', async () => {
+            if(json===''){
+                apiSearch(jobs,jobList,page,pageStart);
+            }
+            let map = await phrasing(json, jobs);
+            let mapArray = map.toArray();
+            if (mapArray.length > 0) {
+                jobList.addEach(mapArray);
+                page++;
+                //console.log(jobs.length);
+                apiAttempt = 0;
+                apiSearch(jobs,jobList,page,pageStart);
+            }
+        });
+    });
+}
