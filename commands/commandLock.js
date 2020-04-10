@@ -14,6 +14,9 @@ module.exports = {
 		if(command.name==='commandlock'||command.name==='commanddeny'){
 			return message.reply('this is the one of the only commands I can not lock');
 		}
+		if (!command||(command.guild !== guildID&&command.guild)) {
+				return message.reply('that\'s not a valid command!');
+			}
 		if(message.guild.me.roles.highest.position<message.member.roles.highest.position){
 			if(args.length===1){
 				const commandLock = await discordDatabase.getCommandLock(JSON.parse(`{"command":"${command.name}","guild_id":"${message.guild.id}"}`));
