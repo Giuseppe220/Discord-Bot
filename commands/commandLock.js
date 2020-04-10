@@ -11,12 +11,12 @@ module.exports = {
 		const {commands} = message.client;
 		const memberMessage = [];
 		const command = commands.get(args[0]) || commands.find(c => c.aliases && c.aliases.includes(args[0]));
-		if(command.name==='commandlock'||command.name==='commanddeny'){
-			return message.reply('this is the one of the only commands I can not lock');
-		}
 		if (!command||(command.guild !== guildID&&command.guild)) {
 				return message.reply('that\'s not a valid command!');
 			}
+		if(command.name==='commandlock'||command.name==='commanddeny'){
+			return message.reply('this is the one of the only commands I can not lock');
+		}
 		if(message.guild.me.roles.highest.position<message.member.roles.highest.position){
 			if(args.length===1){
 				const commandLock = await discordDatabase.getCommandLock(JSON.parse(`{"command":"${command.name}","guild_id":"${message.guild.id}"}`));
