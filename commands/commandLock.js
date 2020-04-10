@@ -12,8 +12,8 @@ module.exports = {
 		const memberMessage = [];
 		const command = commands.get(args[0]) || commands.find(c => c.aliases && c.aliases.includes(args[0]));
 		if (!command||(command.guild !== guildID&&command.guild)) {
-				return message.reply('that\'s not a valid command!');
-			}
+		return message.reply('that\'s not a valid command!');
+		}
 		if(command.name==='commandlock'||command.name==='commanddeny'){
 			return message.reply('this is the one of the only commands I can not lock');
 		}
