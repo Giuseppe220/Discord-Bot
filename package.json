@@ -1,0 +1,16 @@
+{
+  "version": "5.4.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node botTest.js",
+  },
+  "keywords": [],
+  "author": "https://github.com/Giuseppe220",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^12.1.1",
+    "sequelize": "^5.21.3",
+    "sqlite3": "^4.1.1"
+  }
+}
