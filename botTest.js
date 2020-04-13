@@ -280,7 +280,7 @@ client.on('message',async message => {
 	}
 	
 	let serverInfo = null;
-	let serverPrefix = c!;
+	let serverPrefix = "c!";
 	
 	if(message.guild!==null){
 		serverInfo = await discordDatabase.getServer(message.guild.id);
