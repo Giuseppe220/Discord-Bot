@@ -2,6 +2,8 @@ const fs = require('fs');
 const discord = require('discord.js');
 const recursive = require("recursive-readdir");
 const https = require("https");
+const process = require('child_process');
+
 module.exports = {
 	name: 'memes',
 	description: 'posts memes',
@@ -44,9 +46,9 @@ module.exports = {
 		
 		
 		//to expand on the available memes that are sent
-		memes = spawnSync("python CommandFiles/reddit_memes.py",shell:true);
+		memes = process.spawnSync("python CommandFiles/reddit_memes.py",{shell:true});
 		if(memes.status===0){
-		message.channel.send(memes.stdout);
+			message.channel.send(memes.stdout);
 		}else{
 			message.channel.send("there seems to have been an error fetching from reddit");
 		}
