@@ -3,7 +3,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node botTest.js && exit 0"
+    "test": "node botTest.js"
   },
   "keywords": [],
   "author": "Giuseppe220",

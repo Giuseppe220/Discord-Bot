@@ -12,10 +12,10 @@ module.exports = {
 	cooldown: 40,
 	execute(message, args) {
 		if(!args.length){
-			if(fs.existsSync(`../CommandFiles/${message.guild.id}`)){
-				dir = `../CommandFiles/${message.guild.id}/meme`;
+			if(fs.existsSync(`./CommandFiles/${message.guild.id}`)){
+				dir = `./CommandFiles/${message.guild.id}/memes`;
 			}else{
-				dir = `../CommandFiles/memes`;
+				dir = `./CommandFiles/memes`;
 			}
 		}
 		else if (args.length > 1){
@@ -23,7 +23,7 @@ module.exports = {
 			return;
 		}
 		else{
-			dir = `../CommandFiles/memes/${args[0].toLowerCase()}`;
+			dir = `./CommandFiles/memes/${args[0].toLowerCase()}`;
 		}
 		recursive(dir,(error,files) =>{
 			if(error){
