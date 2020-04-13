@@ -1,4 +1,3 @@
-const {prefix} = require('../config.json');
 const discordDatabase = require(`${process.cwd()}/dbhandler`);
 module.exports = {
 	name: 'help',
@@ -12,7 +11,7 @@ module.exports = {
 		
 		
 		let serverInfo = false;
-		let serverPrefix = prefix;
+		let serverPrefix = "c!";
 		
 		if(message.guild!==null){
 			serverInfo = await discordDatabase.getServer(message.guild.id);

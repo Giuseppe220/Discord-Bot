@@ -1,4 +1,3 @@
-const {prefix} = require('../config.json');
 const discordDatabase = require(`${process.cwd()}/dbhandler`);
 module.exports = {
 	name: 'prefix',
@@ -8,7 +7,7 @@ module.exports = {
 	async execute(message, args) {
 		if(args.length!==0){
 			if(message.guild.me.roles.highest.position<message.member.roles.highest.position) {
-				if(args[0]!==prefix){
+				if(args[0]!=="c!"){
 					let newPrefix = await discordDatabase.addServer(JSON.parse(`{"guild_id":"${message.guild.id}","prefix":"${args[0]}"}`));
 					message.channel.send(`"${newPrefix.prefix}" has been set as my prefix`);
 				}
@@ -21,7 +20,7 @@ module.exports = {
 				return message.reply("You do not have the necessary permissions to change the server's prefix");
 			}
 		}else{
-			let newPrefix = prefix;
+			let newPrefix = "c!";
 			let serverPrefix = await discordDatabase.getServer(message.guild.id);
 			if(serverPrefix.prefix){
 				newPrefix = serverPrefix.prefix;
