@@ -393,4 +393,4 @@ client.on('message',async message => {
 
 client.on('error', console.error);
 
-client.login(TOKEN);
+client.login(process.env.TOKEN);
