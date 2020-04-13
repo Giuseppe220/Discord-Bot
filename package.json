@@ -3,10 +3,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node botTest.js",
+    "test": "node botTest.js"
   },
   "keywords": [],
-  "author": "https://github.com/Giuseppe220",
+  "author": "Giuseppe220",
   "license": "MIT",
   "dependencies": {
     "discord.js": "^12.1.1",
