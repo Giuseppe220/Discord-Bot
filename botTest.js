@@ -87,12 +87,9 @@ setInterval(async roulette=>{
 
 client.on('ready', () => {
 	console.log('Ready!');
-	if(fs.existsSync('./botStatus.txt')){
-		let botStatus = fs.readFileSync('./botStatus.txt','utf8');
-		client.user.setStatus(botStatus).then(()=>{
-				console.log(`Making bot ${botStatus}`);
-			});
-	}
+	setTimeout(()=>{
+		client.destory();
+	},180000);
 });
 
 client.on('guildMemberAdd', async member => {
