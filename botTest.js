@@ -92,6 +92,7 @@ client.on('ready', () => {
 	},180000);
 	setTimeout(()=>{
 		client.destroy();
+		process.exit();
 	},240000);
 });
 
