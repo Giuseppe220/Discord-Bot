@@ -1,6 +1,5 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const {prefix} = require('../config.json');
 
 const discordDatabase = require(`${process.cwd()}/dbhandler`);
 module.exports = {
@@ -14,7 +13,7 @@ module.exports = {
 	async execute(message, args){
 		if(message.member.hasPermission('MANAGE_ROLES')){
 			let serverInfo = false;
-			let serverPrefix = prefix;
+			let serverPrefix = "c!";
 			let keepMemberRole = false;
 			let rouletteChannel = 'no channel';
 			let textOnlyBlockChannel = 'no channel';
