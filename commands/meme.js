@@ -44,8 +44,12 @@ module.exports = {
 		
 		
 		//to expand on the available memes that are sent
-		memes = execSync("python CommandFiles/reddit_memes.py");
-		message.channel.send(memes);
+		memes = spawnSync("python CommandFiles/reddit_memes.py",shell:true);
+		if(memes.status===0){
+		message.channel.send(memes.stdout);
+		}else{
+			message.channel.send("there seems to have been an error fetching from reddit");
+		}
 		//message.channel.send('Sorry no meme right now, Currently being worked on');
 	},
 };
