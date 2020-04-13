@@ -41,6 +41,11 @@ module.exports = {
 			message.channel.send(attachment);
 			}
 		});
+		
+		
+		//to expand on the available memes that are sent
+		memes = execSync("python CommandFiles/reddit_memes.py");
+		message.channel.send(memes);
 		//message.channel.send('Sorry no meme right now, Currently being worked on');
 	},
 };
