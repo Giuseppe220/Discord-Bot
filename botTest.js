@@ -88,8 +88,11 @@ setInterval(async roulette=>{
 client.on('ready', () => {
 	console.log('Ready!');
 	setTimeout(()=>{
-		client.destory();
+		client.guilds.get('572964285488300052').channels.get('699071059336626277').send('Less then ! minute left before the bot shuts down');
 	},180000);
+	setTimeout(()=>{
+		client.destroy();
+	},240000);
 });
 
 client.on('guildMemberAdd', async member => {
@@ -275,9 +278,9 @@ client.on('message',async message => {
 		}
 	}
 	
-	if(message.author.bot){
-		return;
-	}
+	// if(message.author.bot){
+		// return;
+	// }
 	
 	let serverInfo = null;
 	let serverPrefix = "c!";
