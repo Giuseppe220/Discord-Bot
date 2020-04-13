@@ -1,4 +1,3 @@
-const fs = require('fs');
 const discord = require('discord.js');
 const recursive = require("recursive-readdir");
 const https = require("https");
@@ -12,11 +11,7 @@ module.exports = {
 	cooldown: 40,
 	execute(message, args) {
 		if(!args.length){
-			if(fs.existsSync(`../CommandFiles/${message.guild.id}`)){
-				dir = `../CommandFiles/${message.guild.id}/meme`;
-			}else{
-				dir = `../CommandFiles/memes`;
-			}
+			dir = `../CommandFiles/${message.guild.id}/meme`;
 		}
 		else if (args.length > 1){
 			message.reply('too many arguments has been supplied');
