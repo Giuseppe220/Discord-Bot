@@ -34,6 +34,7 @@ module.exports = {
 					textBlock.sort();
 				        if(textBlock.lenght){
 					return message.reply(`no channel`).then(sentMessage => sentMessage.delete({timeout:10000})).catch();
+					}					
 			}else if(message.mentions.channels.size!=1){
 				return message.reply(`Please mention a single channel similar to ${message.channel}`);
 			}
