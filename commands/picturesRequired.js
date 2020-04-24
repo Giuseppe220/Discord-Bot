@@ -32,7 +32,7 @@ module.exports = {
 						message.delete({timeout:10000});
 					}catch{}
 					textBlock.sort();
-				        if(textBlock.lenght){
+				        if(textBlock.length){
 					return message.reply(`no channel`).then(sentMessage => sentMessage.delete({timeout:10000})).catch();
 					}					
 			}else if(message.mentions.channels.size!=1){
