@@ -87,13 +87,15 @@ setInterval(async roulette=>{
 
 client.on('ready', () => {
 	console.log('Ready!');
+	// setTimeout(()=>{
+		// client.guilds.cache.get('572964285488300052').channels.cache.get('699071059336626277').send('Less then 1 minute left before the bot shuts down');
+	// },540000);
 	setTimeout(()=>{
-		client.guilds.cache.get('572964285488300052').channels.cache.get('699071059336626277').send('Less then 1 minute left before the bot shuts down');
-	},180000);
-	setTimeout(()=>{
-		client.destroy();
-		process.exit();
-	},240000);
+		client.guilds.cache.get('572964285488300052').channels.cache.get('699071059336626277').send('Done').then(()=>{
+			client.destroy();
+			process.exit();
+		})
+	},600000);
 });
 
 client.on('guildMemberAdd', async member => {
