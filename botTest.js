@@ -94,7 +94,7 @@ client.on('ready', () => {
 		client.guilds.cache.get('572964285488300052').channels.cache.get('699071059336626277').send('Done').then(()=>{
 			client.destroy();
 			process.exit();
-		})
+		});
 	},600000);
 });
 
