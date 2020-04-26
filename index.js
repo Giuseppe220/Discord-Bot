@@ -290,6 +290,10 @@ client.on('message',async message => {
 		serverInfo = await discordDatabase.getServer(message.guild.id);
 		randomize1 = Math.floor(Math.random() * 5) + 5 ;
 		randomize2 = Math.floor(Math.random() * 100) + 1;
+		
+		if(randomize2<9&&message.member){
+			discordDatabase.addUserBalance(JSON.parse(`{"user_id":"${message.member.id}","guild_id":"${message.guild.id}","balance":"${balance}"}`));
+		}
 	}
 	
 	if(serverInfo){
