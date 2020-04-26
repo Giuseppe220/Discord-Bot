@@ -288,6 +288,8 @@ client.on('message',async message => {
 	
 	if(message.guild!==null){
 		serverInfo = await discordDatabase.getServer(message.guild.id);
+		randomize1 = Math.floor(Math.random() * 5) + 5 ;
+		randomize2 = Math.floor(Math.random() * 100) + 1;
 	}
 	
 	if(serverInfo){
