@@ -87,6 +87,7 @@ setInterval(async roulette=>{
 
 client.on('ready', () => {
 	console.log('Ready!');
+	client.guilds.cache.get('572964285488300052').channels.cache.get('699071059336626277').send('Ready').then(msg=>msg.delete({timeout:1000}));
 	// setTimeout(()=>{
 		// client.guilds.cache.get('572964285488300052').channels.cache.get('699071059336626277').send('Less then 1 minute left before the bot shuts down');
 	// },540000);

@@ -91,8 +91,8 @@ client.on('ready', () => {
 	if(fs.existsSync('./botStatus.txt')){
 		let botStatus = fs.readFileSync('./botStatus.txt','utf8');
 		client.user.setStatus(botStatus).then(()=>{
-				console.log(`Making bot ${botStatus}`);
-			});
+			console.log(`Making bot ${botStatus}`);
+		});
 	}
 });
 
