@@ -205,6 +205,23 @@ const modRoulette = sqlite.define('modRoulette', {
         allowNull: false,
     },
 });
+const currentAmount = sqlite.define('currentAmount',{
+    user_id:{
+        type: sql.DataTypes.TEXT,
+        allowNull: false,
+        primaryKey: true,
+    },
+    guild_id:{
+        type:sql.DataTypes.TEXT,
+        allowNull: false,
+        primaryKey: true,
+        },
+    currentAmount:{
+        type: sql.DataTypes.INTEGER,
+        allowNull: false,
+        },
+});
+currentAmount.sync();
 server.sync();
 cooldowns.sync();
 roulette.sync();
@@ -642,4 +659,48 @@ module.exports = {
 			resolve(user);
 		});
 	},
+	removeGuildMemberCurrentAmount: function(requested){
+    		return new Promise(async resolve =>{
+    			try{
+    				await currentAmount.destroy({
+    				  where: {
+    					user_id: requested.user_id,
+    					guild_id: requested.guild_id,
+    				  },
+    				  force: true
+    				});
+    			}catch{}
+    			resolve();
+    		});
+    	},
+    	addGuildMemberCurrentAmount: function(requested){
+    		return new Promise(async resolve =>{
+    			try{
+    				await currentAmount.create(requested);
+    			}catch{
+    				try{
+    					await currentAmount.update(requested, {
+    						where: {
+    							user_id: requested.user_id,
+    							guild_id: requested.guild_id,
+    						}
+    					});
+    				}catch {
+    					console.log("unable to write to current Amount to databse");
+    				}
+    			}
+    			resolve();
+    		});
+    	},
+    	getGuildMemberCurrentAmount: function(requested){
+    		return new Promise(async resolve =>{
+    			const user = await currentAmount.findOne({
+    				where: {
+    					user_id: requested.user_id,
+    					guild_id: requested.guild_id,
+    				}
+    			});
+    			resolve(user);
+    		});
+    	},
 }
