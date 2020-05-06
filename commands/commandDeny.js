@@ -19,6 +19,7 @@ module.exports = {
 		}
 		if(message.guild.me.roles.highest.position<message.member.roles.highest.position){
 			const commandLock = await discordDatabase.getCommandDeny(JSON.parse(`{"command":"${command.name}","guild_id":"${message.guild.id}"}`));
+			if(args.length===1){
 			if(commandLock){
 					memberMessage.push(`${command.name} is currently locked out of <#${commandLock.channel}>`);
 				}else{
