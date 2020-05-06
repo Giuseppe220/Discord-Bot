@@ -2,6 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const discordDatabase = require(`${process.cwd()}/dbhandler`);
 
+
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 let textOnlyBlock = new Discord.Collection();
