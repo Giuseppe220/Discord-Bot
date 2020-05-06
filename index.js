@@ -2,39 +2,39 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
 const discordDatabase = require(`${process.cwd()}/dbhandler`);
-
+​
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 let textOnlyBlock = new Discord.Collection();
 const softbanGuild = new Discord.Collection();
-
+​
 let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
+​
 let commandAmountOld = commandFiles.length;
-
+​
 try{
 	textOnlyBlock = new Discord.Collection(JSON.parse(fs.readFileSync('servers/noTextOnly.txt','utf8')));
 }catch{
 	textOnlyBlock = new Discord.Collection();
 }
-
+​
 try{
 	rouletteChannel = new Discord.Collection(JSON.parse(fs.readFileSync('servers/rouletteChannel.txt','utf8')));
 }catch{
 	rouletteChannel = new Discord.Collection();
 }
-
+​
 for (const file of commandFiles) {
 	let command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
-
+​
 let commandAmountNew = -1;
-
-setInterval(exists => {			
+​
+setInterval(exists => {
 	commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 	commandAmountNew = commandFiles.length;
-
+​
 	if(commandAmountOld  != commandAmountNew){
 		client.commands.clear();
 		for (const file of commandFiles) {
@@ -44,7 +44,7 @@ setInterval(exists => {
 		commandAmountOld = commandAmountNew;
 	}
 },60000);
-
+​
 setInterval(()=>{
 	try{
 		textOnlyBlock = new Discord.Collection(JSON.parse(fs.readFileSync('servers/noTextOnly.txt','utf8')));
@@ -52,7 +52,7 @@ setInterval(()=>{
 		textOnlyBlock = new Discord.Collection();
 	}
 },5000);
-
+​
 setInterval(()=>{
 	try{
 		rouletteChannel = new Discord.Collection(JSON.parse(fs.readFileSync('servers/rouletteChannel.txt','utf8')));
@@ -60,7 +60,7 @@ setInterval(()=>{
 		rouletteChannel = new Discord.Collection();
 	}
 },5000);
-
+​
 setInterval(async roulette=>{
 	let now = Date.now();
 	let rouletteUser = await discordDatabase.getRouletteLoop(JSON.parse(`{"mutedUntil":"${now}"}`));
@@ -84,8 +84,8 @@ setInterval(async roulette=>{
 			await discordDatabase.addRoulette(JSON.parse(`{"user_id":"${member.id}","guild_id":"${guild.id}","playTimes":"${play}","mutedUntil":"${muteTime}","modMuted":"false"}`),guild.id);
 		});
 	}
-},1000);	
-
+},1000);
+​
 client.on('ready', () => {
 	console.log('Ready!');
 	if(fs.existsSync('./botStatus.txt')){
@@ -95,7 +95,7 @@ client.on('ready', () => {
 		});
 	}
 });
-
+​
 client.on('guildMemberAdd', async member => {
 	const serverInfo = await discordDatabase.getServer(member.guild.id);
 	let secondLink = false;
@@ -152,7 +152,7 @@ client.on('guildMemberAdd', async member => {
 		}
 	}
 });
-
+​
 client.on('guildMemberUpdate', async (oldMember, newMember) => {
 	if(oldMember.user.bot||newMember.user.bot){
 		return;
@@ -174,15 +174,15 @@ client.on('guildMemberUpdate', async (oldMember, newMember) => {
 					await discordDatabase.addGuildMemberRoles(JSON.parse(`{"user_id":"${newMember.id}","guild_id":"${newMember.guild.id}","roles":"${roles}"}`));
 				}
 				else{
-					await discordDatabase.removeGuildMemberRoles(JSON.parse(`{"user_id":"${newMember.id}","guild_id":"${newMember.guild.id}"}`));				
+					await discordDatabase.removeGuildMemberRoles(JSON.parse(`{"user_id":"${newMember.id}","guild_id":"${newMember.guild.id}"}`));
 				}
 			}else{
-				await discordDatabase.removeGuildMemberRoles(JSON.parse(`{"user_id":"${newMember.id}","guild_id":"${newMember.guild.id}"}`));				
+				await discordDatabase.removeGuildMemberRoles(JSON.parse(`{"user_id":"${newMember.id}","guild_id":"${newMember.guild.id}"}`));
 			}
 		}
 	}
 });
-
+​
 client.on('guildBanAdd', async (guild, member) => {
 	if(member.user.bot){
 		return;
@@ -205,14 +205,14 @@ client.on('guildBanAdd', async (guild, member) => {
 					}
 				}
 				if(guildMember){
-					await discordDatabase.removeGuildMemberRoles(JSON.parse(`{"user_id":"${member.id}","guild_id":"${guild.id}"}`));								
+					await discordDatabase.removeGuildMemberRoles(JSON.parse(`{"user_id":"${member.id}","guild_id":"${guild.id}"}`));
 				}
 				softban.delete(member.id);
 			},10000);
 		}
 	}
 });
-
+​
 client.on('guildBanRemove', async (guild, member) => {
 	if(!softbanGuild.has(guild.id)){
 		softbanGuild.set(guild.id,new Discord.Collection());
@@ -233,7 +233,7 @@ client.on('guildBanRemove', async (guild, member) => {
 		}
 	},15000);
 });
-
+​
 client.on('channelDelete', async channel => {
 	if(channel.type === 'text'){
 		const commandLocked = await discordDatabase.getCommandLockLoop(JSON.parse(`{"channel":"${channel.id}","guild_id":"${channel.guild.id}"}`));
@@ -269,8 +269,8 @@ client.on('channelDelete', async channel => {
 		}
 	}
 });
-
-client.on('message',async message => {	
+​
+client.on('message',async message => {
 	if(message.guild!==null){
 		if(textOnlyBlock.has(message.guild.id)){
 			if(textOnlyBlock.get(message.guild.id).includes(message.channel.id)&&message.attachments.size===0&&!message.content.includes(`http://`)&&!message.content.includes(`https://`)){
@@ -278,30 +278,30 @@ client.on('message',async message => {
 			}
 		}
 	}
-	
+
 	if(message.author.bot){
 		return;
 	}
-	
+
 	let serverInfo = null;
 	let serverPrefix = prefix;
-	
+
 	if(message.guild!==null){
 		serverInfo = await discordDatabase.getServer(message.guild.id);
 		randomize1 = Math.floor(Math.random() * 5) + 5 ;
 		randomize2 = Math.floor(Math.random() * 100) + 1;
-		
+
 		if(randomize2<9&&message.member){
 			discordDatabase.addGuildMemberCurrentAmount(JSON.parse(`{"user_id":"${message.member.id}","guild_id":"${message.guild.id}","balance":"${balance}"}`));
 		}
 	}
-	
+
 	if(serverInfo){
 		if(serverInfo.prefix){
 			serverPrefix = serverInfo.prefix;
 		}
 	}
-	
+
 	args = message.content.split(/ +/);
 	if (!args[0].startsWith(serverPrefix)&&!args[0].includes(`${client.user.id}`)) return;
 	if(args[0].startsWith(serverPrefix)){
@@ -310,48 +310,48 @@ client.on('message',async message => {
 	else{
 		args.shift();
 	}
-
+​
 	const commandName = args.shift().toLowerCase();
-
+​
 	const sentCommand = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-	
+
 	let commandLock = null;
-	
+
 	if (sentCommand==null) {
 		return;
 	}
-	
+
 	try{
 		commandLock = await discordDatabase.getCommandLock(JSON.parse(`{"command":"${sentCommand.name}","guild_id":"${message.guild.id}"}`));
 	}catch{}
-	
+
 	if(commandLock){
-		if(commandLock.channel!==message.channel.id){
-			return;
-		}
-	}
-	
-	if(sentCommand.channelLock&&!commandLock){
-		return message.reply('that command **MUST** be locked to a channel!');
-	}
-	
-	let commandDeny = null;
-	
-	try{
-		commandDeny = await discordDatabase.getCommandDeny(JSON.parse(`{"command":"${sentCommand.name}","guild_id":"${message.guild.id}"}`));
-	}catch{}
-	
-	if(commandDeny){
-		if(commandDeny.channel===message.channel.id){
+		if(commandLock.channel.split(',').includes(message.channel.id)){
 			return;
 		}
 	}
 
+	if(sentCommand.channelLock&&!commandLock){
+		return message.reply('that command **MUST** be locked to a channel!');
+	}
+
+	let commandDeny = null;
+
+	try{
+		commandDeny = await discordDatabase.getCommandDeny(JSON.parse(`{"command":"${sentCommand.name}","guild_id":"${message.guild.id}"}`));
+	}catch{}
+
+	if(commandDeny){
+		if(commandDeny.channel.channel.split(',').includes(message.channel.id)){
+			return;
+		}
+	}
+​
 	if (sentCommand.guildOnly && message.channel.type !== 'text') {
 		return message.reply('I can\'t execute that command inside DMs!');
 	}
-	
-	
+
+
 	if (sentCommand.args && !args.length) {
 		let reply = `You didn't provide any arguments, ${message.author}!`;
 			if (sentCommand.usage) {
@@ -359,17 +359,17 @@ client.on('message',async message => {
 		}
 		return message.channel.send(reply);
 	}
-	
+
 	try{
 		guildID = message.guild.id;
 	}catch{
 		guildID = null;
 	}
-		
+
 	const now = Date.now();
 	const timestamp = await discordDatabase.getTimeout(JSON.parse(`{"user_id":"${message.author.id}","command":"${sentCommand.name}","guild_id":"${guildID}"}`));
 	const cooldownAmount = (sentCommand.cooldown || 5) * 1000;
-	
+
 	if(timestamp){
 		const expirationTime = timestamp.timeout + cooldownAmount;
 		if (now < expirationTime) {
@@ -377,17 +377,17 @@ client.on('message',async message => {
 			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the command \`${sentCommand.name}\`.`);
 		}
 	}
-
+​
 	if(guildID !== null){
 		await discordDatabase.addTimeout(JSON.parse(`{"user_id":"${message.author.id}","command":"${sentCommand.name}","guild_id":"${message.guild.id}","timeout":"${now}"}`));
 	}
-	
+
 	setTimeout(async () => {
 		try{
 			await discordDatabase.removeTimeout(JSON.parse(`{"user_id":"${message.author.id}","command":"${sentCommand.name}","guild_id":"${guildID}"}`));
 		}catch{}
 	}, cooldownAmount);
-	
+
 	if((sentCommand.guild === guildID||!sentCommand.guild)&&((!sentCommand.permission)||(message.guild.me.hasPermission(sentCommand.permission)))){
 		try {
 			sentCommand.execute(message, args);
@@ -400,7 +400,7 @@ client.on('message',async message => {
 		message.reply(`I am missing permissions required for ${sentCommand.name}\nI require ${sentCommand.permission.toLowerCase()} at least`);
 	}
  });
-
+​
 client.on('error', console.error);
-
+​
 client.login(token);
