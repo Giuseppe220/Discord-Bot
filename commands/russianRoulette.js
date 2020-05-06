@@ -53,7 +53,7 @@ module.exports = {
 		if(randomize<ammo){
 			data.push("Bang!");
 			muteRole = message.guild.roles.cache.find(x => x.id === serverInfo.muteRoleID);
-			if(muteRole.position>message.member.roles.highest.position&&muteRole){
+			if(muteRole.position>message.member.roles.highest.position||message.guild.ownerID!==message.member.id)&&muteRole){
 			//if((!message.member.hasPermission('ADMINISTRATOR')&&!botOwner)&&muteRole){
 				if(points>=8){
 					points = points - 8;
