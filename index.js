@@ -292,7 +292,7 @@ client.on('message',async message => {
 		randomize2 = Math.floor(Math.random() * 100) + 1;
 		
 		if(randomize2<9&&message.member){
-			discordDatabase.addUserBalance(JSON.parse(`{"user_id":"${message.member.id}","guild_id":"${message.guild.id}","balance":"${balance}"}`));
+			discordDatabase.addGuildMemberCurrentAmount(JSON.parse(`{"user_id":"${message.member.id}","guild_id":"${message.guild.id}","balance":"${balance}"}`));
 		}
 	}
 	
