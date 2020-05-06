@@ -326,10 +326,16 @@ client.on('message',async message => {
 	}catch{}
 
 	if(commandLock){
-		if(commandLock.channel.split(',').includes(message.channel.id)){
-			return;
-		}
-	}
+    		if(commandLock.channel.split(',').includes(message.channel.id)){
+    			return;
+    		}
+    		commandLock.channel.split(',').forEach(commandLocked=>{
+    			if(message.member.roles.cache.has(commandLocked)){
+    				return;
+    			}
+    		})
+    	}
+
 
 	if(sentCommand.channelLock&&!commandLock){
 		return message.reply('that command **MUST** be locked to a channel!');
