@@ -1,5 +1,5 @@
 const discordDatabase = require(`${process.cwd()}/dbhandler`);
-​
+
 module.exports = {
 	name: 'balance',
 	description: 'states user\'s balance',
