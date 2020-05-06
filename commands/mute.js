@@ -6,7 +6,7 @@ module.exports = {
 	usage: '<user>',
 	permission: 'MANAGE_ROLES',
 	args: true,
-	cooldown: 5,||message.guild.ownerID===message.member.id)
+	cooldown: 5,
 	guildOnly: true,
 	async execute(message, args) {
 		const server = await discordDatabase.getServer(message.guild.id);
@@ -29,7 +29,7 @@ module.exports = {
 				message.delete({timeout:10000});
 			}).catch()
 		}
-		if (args.length >= 1&&muteRole&&muteRole.position<message.member.roles.highest.position){if(muteRole.position>member.roles.highest.position){
+		if (args.length >= 1&&muteRole&&(muteRole.position<message.member.roles.highest.position))||message.guild.ownerID!==message.member.id)
 			let members = message.mentions.members;
 			membersList = [];
 			members.each(member=>{
