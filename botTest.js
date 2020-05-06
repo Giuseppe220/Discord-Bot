@@ -376,7 +376,7 @@ client.on('message',async message => {
 	
 	if(timestamp){
 		const expirationTime = timestamp.timeout + cooldownAmount;
-		if (now < expirationTime) {
+		if (now < expirationTime&&!message.author.bot) {
 			const timeLeft = (expirationTime - now) / 1000;
 			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the command \`${sentCommand.name}\`.`);
 		}
