@@ -51,7 +51,7 @@ module.exports = {
 		
 		const muteRole = message.guild.roles.cache.find(x => x.id === server.muteRoleID);
 		
-		if(muteRole.position<rouletteMember.roles.highest.position){
+		if(muteRole.position<rouletteMember.roles.highest.position||message.guild.ownerID===message.member.id){
 			return message.reply(`That user is immune to bullets! NYA NYA!`);
 		}
 		
