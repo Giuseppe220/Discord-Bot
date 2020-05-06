@@ -23,7 +23,7 @@ module.exports = {
 			kickedMembers = [];
 			notKickedMembers = [];
 			members.each(async member=>{
-					if((member.roles.highest.position<message.member.roles.highest.position||botOwner||message.guild.ownerID===message.member.id)&&member.roles.highest.position<message.guild.me.roles.highest.position&&message.guild.ownerID!==member.id){
+					if((member.roles.highest.position<message.member.roles.highest.position||message.guild.ownerID===message.member.id)&&member.roles.highest.position<message.guild.me.roles.highest.position&&message.guild.ownerID!==member.id){
 						kickedMembers.push(`${member.user.username}`);
 						member.kick();
 						if(serverInfo){
