@@ -34,11 +34,11 @@ module.exports = {
 				message.delete({timeout:10000});
 			}).catch()
 		}
-		if (args.length >= 1&&muteRole&&(muteRole.position<message.member.roles.highest.position)){
+		if (args.length >= 1&&muteRole&&(muteRole.position<message.member.roles.highest.position||message.guild.ownerID===message.member.id)){
 			let members = message.mentions.members;
 			membersList = [];
 			members.each(member=>{
-				if(muteRole.position>member.roles.highest.position){||message.guild.ownerID!==message.member.id)
+				if(muteRole.position>member.roles.highest.position||message.guild.ownerID!==message.member.id){
 					//console.log(`${muteRole.position} ${member.roles.highest.position}`)
 					member.roles.remove(muteRole).catch(console.error);
 					membersList.push(`${member.displayName}`);
