@@ -38,7 +38,7 @@ module.exports = {
 			let members = message.mentions.members;
 			membersList = [];
 			members.each(member=>{
-				if(muteRole.position>member.roles.highest.position){
+				if(muteRole.position>member.roles.highest.position){||message.guild.ownerID!==message.member.id)
 					//console.log(`${muteRole.position} ${member.roles.highest.position}`)
 					member.roles.remove(muteRole).catch(console.error);
 					membersList.push(`${member.displayName}`);
