@@ -136,4 +136,3 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/node,windows
 discord.db
-config.json
