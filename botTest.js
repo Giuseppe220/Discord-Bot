@@ -97,7 +97,7 @@ client.on('ready', () => {
 			client.destroy();
 			process.exit();
 		});
-	},600000);
+	},660000);
 });
 
 client.on('guildMemberAdd', async member => {
